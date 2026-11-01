@@ -4,5 +4,6 @@
   "url": "https://github.com/trkcz01/kcz-editor/releases/download/v0.0.1/KCZ_Editor_Kurulum.exe",
   "notes": [
     "İlk kapalı beta sürümü"
-  ]
+  ],
+  "mandatory": true
 }
