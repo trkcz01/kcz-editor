@@ -10,5 +10,6 @@
   "launcher": {
     "version": "0.0.1",
     "url": "https://github.com/trkcz01/kcz-editor/releases/latest/download/KCZ_Launcher_Kurulum.exe"
-  }
+  },
+  "zipMB": 135
 }
