@@ -1,9 +1,14 @@
 {
   "version": "0.0.1",
   "date": "01.11.2026",
-  "url": "https://github.com/trkcz01/kcz-editor/releases/download/v0.0.1/KCZ_Editor_Kurulum.exe",
+  "zip": "https://github.com/trkcz01/kcz-editor/releases/download/v0.0.1/KCZ_Editor.zip",
+  "url": "https://github.com/trkcz01/kcz-editor/releases/latest/download/KCZ_Launcher_Kurulum.exe",
   "notes": [
     "İlk kapalı beta sürümü"
   ],
-  "mandatory": true
+  "mandatory": true,
+  "launcher": {
+    "version": "0.0.1",
+    "url": "https://github.com/trkcz01/kcz-editor/releases/latest/download/KCZ_Launcher_Kurulum.exe"
+  }
 }
