@@ -85,7 +85,8 @@ main.wrap{padding-top:18px;padding-bottom:40px}
 .tile .d.up{color:var(--green)}
 
 .sec{margin-top:14px}
-.tabs{display:flex;gap:6px;margin-left:auto;text-transform:none;letter-spacing:0}
+.card h2{flex-wrap:wrap;row-gap:8px}
+.tabs{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;text-transform:none;letter-spacing:0}
 .tab{border:1px solid var(--line);background:none;border-radius:99px;padding:3px 11px;font-size:12px;cursor:pointer;color:var(--dim)}
 .tab.on{background:var(--accent);border-color:var(--accent);color:#04201e;font-weight:600}
 .chart{position:relative;height:180px}
@@ -100,6 +101,28 @@ main.wrap{padding-top:18px;padding-bottom:40px}
 .banner{background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.4);color:var(--text);border-radius:12px;padding:12px 14px;font-size:14px;margin-bottom:14px}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(120px);background:var(--panel);border:1px solid var(--green);border-radius:12px;padding:11px 16px;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .35s;z-index:9;max-width:calc(100% - 32px)}
 .toast.show{transform:translateX(-50%) translateY(0)}
+.fb{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:var(--panel2)}
+.fb.new{border-color:var(--amber)}
+.fb .h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}
+.fb .h b{font-size:14px}
+.fb .h small{color:var(--dim)}
+.kb{font-size:11.5px;font-weight:700;border-radius:99px;padding:2px 9px}
+.kb.hata{background:rgba(255,107,107,.16);color:var(--red)}
+.kb.oneri{background:rgba(245,176,65,.18);color:var(--amber)}
+.kb.yeni{background:rgba(0,209,193,.16);color:var(--accent)}
+.kb.okundu{background:var(--panel);color:var(--dim);border:1px solid var(--line)}
+.kb.cozuldu{background:rgba(43,182,115,.16);color:var(--green)}
+.fb .m{margin:8px 0 6px;white-space:pre-wrap;word-break:break-word;font-size:14.5px;line-height:1.5}
+.fb .meta{color:var(--dim);font-size:12px}
+.fb .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.fb .acts button{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:5px 10px;font-size:12.5px;cursor:pointer}
+.fb .acts button:hover{border-color:var(--dim)}
+.fb .acts button.del{color:var(--red)}
+.cnt{background:var(--amber);color:#201400;font-size:11px;font-weight:800;border-radius:99px;padding:1px 8px;letter-spacing:0}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center;z-index:20;padding:16px}
+.mbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;width:100%;max-width:860px;max-height:86vh;display:flex;flex-direction:column}
+.mbox .mh{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);font-weight:600}
+.mbox pre{margin:0;padding:14px;overflow:auto;font:12px/1.45 Consolas,ui-monospace,monospace;white-space:pre-wrap;word-break:break-all;flex:1}
 </style>
 </head>
 <body>
@@ -156,6 +179,18 @@ main.wrap{padding-top:18px;padding-bottom:40px}
     <div class="tile"><div class="l">Toplam video</div><div class="v num" id="t_minutes">0</div><div class="d">dışa aktarılan süre</div></div>
   </div>
 
+  <div class="card sec" id="fbCard">
+    <h2>Geri bildirimler <span class="cnt hidden" id="fbCnt">0</span>
+      <div class="tabs" id="fbTabs">
+        <button class="tab on" data-f="yeni">Yeni</button>
+        <button class="tab" data-f="hata">Hata</button>
+        <button class="tab" data-f="oneri">Öneri</button>
+        <button class="tab" data-f="hepsi">Hepsi</button>
+      </div>
+    </h2>
+    <div id="fbList"><div class="empty">Henüz bildirim yok.</div></div>
+  </div>
+
   <div class="card sec">
     <h2>Son 30 gün
       <div class="tabs" id="tabs">
@@ -187,6 +222,7 @@ main.wrap{padding-top:18px;padding-bottom:40px}
 </main>
 
 <div class="toast" id="toast"></div>
+<div class="modal hidden" id="modal"><div class="mbox"><div class="mh"><span id="mTitle">Kayıt</span><div class="sp"></div><button class="ib" id="mCopy">Kopyala</button><button class="ib" id="mClose">Kapat</button></div><pre id="mBody"></pre></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
@@ -319,6 +355,7 @@ main.wrap{padding-top:18px;padding-bottom:40px}
       const now = new Date();
       $('at').innerHTML = '<span class="lbl">Canlı · </span>' + now.toLocaleTimeString('tr-TR');
       render(d);
+      loadFeedback();
     } catch (e) {
       const msg = trError(e);
       $('dot').classList.add('off');
@@ -326,6 +363,87 @@ main.wrap{padding-top:18px;padding-bottom:40px}
       if (msg === 'Bu hesap yönetici değil.') stop();
     } finally { busy = false; }
   }
+
+  // ---------- geri bildirimler
+  let fb = [], fbFilter = sget('kcz_fb', 'yeni'), fbSeen = null;
+  document.querySelectorAll('#fbTabs .tab').forEach(b => {
+    b.classList.toggle('on', b.dataset.f === fbFilter);
+    b.addEventListener('click', () => {
+      fbFilter = b.dataset.f; sset('kcz_fb', fbFilter);
+      document.querySelectorAll('#fbTabs .tab').forEach(x => x.classList.toggle('on', x === b));
+      renderFeedback();
+    });
+  });
+  async function loadFeedback() {
+    try {
+      const { data: rows, error } = await sb.rpc('admin_feedback', { p_limit: 300 });
+      if (error) throw error;
+      fb = rows || [];
+      const ids = new Set(fb.map(f => f.id));
+      if (fbSeen) {
+        const fresh = fb.filter(f => !fbSeen.has(f.id));
+        if (fresh.length === 1) notify(`Yeni ${fresh[0].kind === 'oneri' ? 'öneri' : 'hata bildirimi'}: ${fresh[0].full_name || fresh[0].email || ''}`);
+        else if (fresh.length > 1) notify(`${fresh.length} yeni bildirim geldi`);
+      }
+      fbSeen = ids;
+      renderFeedback();
+    } catch (e) {
+      const m = String(e?.message || '');
+      $('fbList').innerHTML = `<div class="empty">${m.includes('admin_feedback') || m.includes('could not find') ? 'Veritabanı kurulumu eksik: supabase_kurulum.sql dosyasını tekrar çalıştır.' : esc(trError(e))}</div>`;
+    }
+  }
+  function renderFeedback() {
+    const nNew = fb.filter(f => f.status === 'yeni').length;
+    $('fbCnt').textContent = nNew; $('fbCnt').classList.toggle('hidden', nNew === 0);
+    const list = fb.filter(f => fbFilter === 'hepsi' ? true : fbFilter === 'yeni' ? f.status === 'yeni' : f.kind === fbFilter);
+    if (!list.length) {
+      $('fbList').innerHTML = `<div class="empty">${fbFilter === 'yeni' ? 'Yeni bildirim yok.' : 'Bildirim yok.'}</div>`;
+      return;
+    }
+    const stTxt = { yeni: 'Yeni', okundu: 'Okundu', cozuldu: 'Çözüldü' };
+    $('fbList').innerHTML = list.slice(0, 100).map(f => `
+      <div class="fb${f.status === 'yeni' ? ' new' : ''}" data-id="${f.id}">
+        <div class="h">
+          <span class="kb ${f.kind === 'oneri' ? 'oneri' : 'hata'}">${f.kind === 'oneri' ? 'Öneri' : 'Hata'}</span>
+          <span class="kb ${esc(f.status)}">${stTxt[f.status] || esc(f.status)}</span>
+          <b>${esc(f.full_name || (f.email || '').split('@')[0] || 'İsimsiz')}</b>
+          <small>${esc(f.email || '')}</small>
+          <span class="sp"></span>
+          <small title="${esc(new Date(f.created_at).toLocaleString('tr-TR'))}">${ago(f.created_at)}</small>
+        </div>
+        <div class="m">${esc(f.message)}</div>
+        <div class="meta">${esc(f.app === 'launcher' ? 'Launcher' : 'Editör')} · v${esc(f.app_version || '?')} · ${esc(f.os || '')}</div>
+        <div class="acts">
+          ${f.has_log ? `<button data-a="log">Kaydı gör (${fmt(Math.round(f.log_size / 1024))} KB)</button>` : ''}
+          ${f.status !== 'okundu' ? '<button data-a="okundu">Okundu</button>' : ''}
+          ${f.status !== 'cozuldu' ? '<button data-a="cozuldu">Çözüldü ✓</button>' : ''}
+          ${f.status !== 'yeni' ? '<button data-a="yeni">Yeni yap</button>' : ''}
+          <button data-a="sil" class="del">Sil</button>
+        </div>
+      </div>`).join('');
+  }
+  $('fbList').addEventListener('click', async ev => {
+    const b = ev.target.closest('button[data-a]'); if (!b) return;
+    const id = Number(b.closest('.fb').dataset.id), a = b.dataset.a;
+    const item = fb.find(f => f.id === id);
+    if (a === 'log') {
+      $('mTitle').textContent = `Kayıt — ${item?.full_name || item?.email || ''}`;
+      $('mBody').textContent = 'Yükleniyor...'; $('modal').classList.remove('hidden');
+      const { data: log, error } = await sb.rpc('admin_feedback_log', { p_id: id });
+      $('mBody').textContent = error ? trError(error) : (log || '(boş)');
+      $('mBody').scrollTop = $('mBody').scrollHeight;
+      return;
+    }
+    if (a === 'sil' && !b.dataset.ok) { b.dataset.ok = '1'; b.textContent = 'Emin misin? Tekrar bas'; return; }
+    b.disabled = true;
+    const { error } = await sb.rpc('admin_set_feedback', { p_id: id, p_status: a });
+    if (error) { toast(trError(error)); b.disabled = false; return; }
+    if (a === 'sil') fb = fb.filter(f => f.id !== id); else if (item) item.status = a;
+    renderFeedback();
+  });
+  $('mClose').addEventListener('click', () => $('modal').classList.add('hidden'));
+  $('modal').addEventListener('click', ev => { if (ev.target.id === 'modal') $('modal').classList.add('hidden'); });
+  $('mCopy').addEventListener('click', async () => { try { await navigator.clipboard.writeText($('mBody').textContent); toast('Kopyalandı'); } catch { toast('Kopyalanamadı'); } });
 
   function render(d) {
     const online = d.online_now || 0;
