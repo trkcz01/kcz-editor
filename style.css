@@ -27,3 +27,6 @@ h1{font-size:clamp(34px,6vw,56px);line-height:1.08;margin:18px 0}
 footer{border-top:1px solid var(--line);padding:28px 0;color:var(--dim);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 footer a{color:var(--dim)}
+.small{color:var(--dim);font-size:13px;margin-top:14px}
+.steps{margin:0 0 72px;padding:28px}.steps h2{margin:0 0 12px}.steps ol{margin:0;padding-left:22px;color:#cfcfd8}.steps li{margin:8px 0}
+code{background:#24252c;padding:2px 6px;border-radius:5px;font-size:13px}
