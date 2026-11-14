@@ -1,0 +1,97 @@
+# KCZ Editör ses efektleri — kaynaklar
+
+Bütün sesler CC0 1.0 (kamu malı) lisanslıdır: ücretsiz, ticari kullanım dahil serbest, kaynak göstermek gerekmez.
+Derleme: novincode/atomcut-library (GitHub) üzerinden; asıl kaynaklar aşağıda. 'kcz-synth' sesleri KCZ Editör tarafından programla üretildi.
+
+- **impacts-risers** — AtomCut
+- **kcz-synth** — KCZ Editör (programla üretildi) · serbest
+- **kenney-casino-audio** — Kenney · kenney.nl · CC0 1.0 (public domain) — https://kenney.nl/assets/category:Audio
+- **kenney-digital-audio** — Kenney · kenney.nl · CC0 1.0 (public domain) — https://kenney.nl/assets/category:Audio
+- **kenney-impact-sounds** — Kenney · kenney.nl · CC0 1.0 (public domain) — https://kenney.nl/assets/category:Audio
+- **kenney-interface-sounds** — Kenney · kenney.nl · CC0 1.0 (public domain) — https://kenney.nl/assets/category:Audio
+- **kenney-music-jingles** — Kenney · kenney.nl · CC0 1.0 (public domain) — https://kenney.nl/assets/category:Audio
+- **kenney-rpg-audio** — Kenney · kenney.nl · CC0 1.0 (public domain) — https://kenney.nl/assets/category:Audio
+- **kenney-sci-fi-sounds** — Kenney · kenney.nl · CC0 1.0 (public domain) — https://kenney.nl/assets/category:Audio
+- **kenney-ui-audio** — Kenney · kenney.nl · CC0 1.0 (public domain) — https://kenney.nl/assets/category:Audio
+- **kenney-voiceover-pack** — Kenney · kenney.nl · CC0 1.0 (public domain) — https://kenney.nl/assets/category:Audio
+- **motion-essentials** — AtomCut
+- **opengameart-10-8bit-coin-sounds** — lukerustltd · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/10-8bit-coin-sounds
+- **opengameart-100-cc0-metal-and-wood-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/100-cc0-metal-and-wood-sfx
+- **opengameart-100-cc0-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/100-cc0-sfx
+- **opengameart-100-cc0-sfx-2** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/100-cc0-sfx-2
+- **opengameart-15-vocal-male-strainhurtpainjump-sounds** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/15-vocal-male-strainhurtpainjump-sounds
+- **opengameart-16-button-clicks** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/16-button-clicks
+- **opengameart-2-dice-roll-29-throws** — rpg · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/2-dice-roll-29-throws
+- **opengameart-20-rustles-dry-leaves** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/20-rustles-dry-leaves
+- **opengameart-20-sword-sound-effects-attacks-and-clashes** — starninjas · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/20-sword-sound-effects-attacks-and-clashes
+- **opengameart-202-more-sound-effects** — owlishmedia · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/202-more-sound-effects
+- **opengameart-25-cc0-bang-firework-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/25-cc0-bang-firework-sfx
+- **opengameart-25-cc0-mud-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/25-cc0-mud-sfx
+- **opengameart-30-cc0-sfx-loops** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/30-cc0-sfx-loops
+- **opengameart-30-weird-cc0-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/30-weird-cc0-sfx
+- **opengameart-35-wooden-crackshitsdestructions** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/35-wooden-crackshitsdestructions
+- **opengameart-37-hitspunches** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/37-hitspunches
+- **opengameart-40-cc0-water-splash-slime-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/40-cc0-water-splash-slime-sfx
+- **opengameart-42-snow-and-gravel-footsteps** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/42-snow-and-gravel-footsteps
+- **opengameart-5-hit-sounds-dying** — tinyworlds · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/5-hit-sounds-dying
+- **opengameart-50-cc0-retro-synth-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/50-cc0-retro-synth-sfx
+- **opengameart-50-cc0-sci-fi-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/50-cc0-sci-fi-sfx
+- **opengameart-51-ui-sound-effects-buttons-switches-and-clicks** — kenney · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks
+- **opengameart-512-sound-effects-8-bit-style** — subspaceaudio · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/512-sound-effects-8-bit-style
+- **opengameart-60-cc0-sci-fi-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/60-cc0-sci-fi-sfx
+- **opengameart-63-digital-sound-effects-lasers-phasers-space-etc** — kenney · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/63-digital-sound-effects-lasers-phasers-space-etc
+- **opengameart-7-assorted-sound-effects-menu-level-up** — joth · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/7-assorted-sound-effects-menu-level-up
+- **opengameart-75-cc0-breaking-falling-hit-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx
+- **opengameart-8-bit-jump-1** — jalastram · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/8-bit-jump-1
+- **opengameart-8-bit-sound-effect-pack-vol-001** — deva · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/8-bit-sound-effect-pack-vol-001
+- **opengameart-8-wet-squish-slurp-impacts** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/8-wet-squish-slurp-impacts
+- **opengameart-80-cc0-creature-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/80-cc0-creature-sfx
+- **opengameart-80-cc0-creture-sfx-2** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/80-cc0-creture-sfx-2
+- **opengameart-80-cc0-rpg-sfx** — rubberduck · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/80-cc0-rpg-sfx
+- **opengameart-87-clickety-clips** — owlishmedia · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/87-clickety-clips
+- **opengameart-9-wet-snow-steps** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/9-wet-snow-steps
+- **opengameart-alien-sounds** — opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/alien-sounds
+- **opengameart-atmospheric-interaction-sound-pack** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/atmospheric-interaction-sound-pack
+- **opengameart-book-flip-sounds** — voltiment555 · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/book-flip-sounds
+- **opengameart-card-game-sounds** — haeldb · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/card-game-sounds
+- **opengameart-click-sounds6** — pauliuw · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/click-sounds6
+- **opengameart-dialog-vocal-samples** — mirceakitsune · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/dialog-vocal-samples
+- **opengameart-different-steps-on-wood-stone-leaves-gravel-and-mud** — tinyworlds · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/different-steps-on-wood-stone-leaves-gravel-and-mud
+- **opengameart-door-open-door-close** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/door-open-door-close
+- **opengameart-door-open-door-close-set** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/door-open-door-close-set
+- **opengameart-fantasy-accessory-sfx-library** — vehicle · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/fantasy-accessory-sfx-library
+- **opengameart-fantasy-sound-effects-tinysized-sfx** — vehicle · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx
+- **opengameart-fantozzis-footsteps-grasssand-stone** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/fantozzis-footsteps-grasssand-stone
+- **opengameart-female-rpg-voice-starter-pack** — cicifyre · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/female-rpg-voice-starter-pack
+- **opengameart-footsteps-leather-cloth-armor** — haeldb · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/footsteps-leather-cloth-armor
+- **opengameart-goblins-sound-pack** — artisticdude · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/goblins-sound-pack
+- **opengameart-gui-sound-effects** — lokif · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/gui-sound-effects
+- **opengameart-hurt-death-sound-effect-for-character** — badre-eddine · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/hurt-death-sound-effect-for-character
+- **opengameart-interface-beeps** — bart · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/interface-beeps
+- **opengameart-keyboard-soundpack-1-typing-and-single-keystrokes** — unicaegames · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/keyboard-soundpack-1-typing-and-single-keystrokes
+- **opengameart-level-up-power-up-coin-get-13-sounds** — wobbleboxx · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/level-up-power-up-coin-get-13-sounds
+- **opengameart-magic-spell-sfx** — jaggedstone · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/magic-spell-sfx
+- **opengameart-male-gruntyelling-sounds** — haeldb · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/male-gruntyelling-sounds
+- **opengameart-monster-sound-effects-2** — ogrebane · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/monster-sound-effects-2
+- **opengameart-monster-sound-effects-pack** — ogrebane · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/monster-sound-effects-pack
+- **opengameart-monster-sound-pack-volume-1** — ogrebane · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/monster-sound-pack-volume-1
+- **opengameart-nes-8-bit-sound-effects** — shiru8bit · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/nes-8-bit-sound-effects
+- **opengameart-nes-sounds** — ba%C5%9Dto · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/nes-sounds
+- **opengameart-platformer-sounds-terminal-interaction-door-shots-bang-and-footsteps** — yd · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/platformer-sounds-terminal-interaction-door-shots-bang-and-footsteps
+- **opengameart-racing-car-engine-sound-loops** — domasx2 · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/racing-car-engine-sound-loops
+- **opengameart-random-sfx** — %C3%A9crivain · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/random-sfx
+- **opengameart-retro-shooter-sound-effects** — muncheybobo · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/retro-shooter-sound-effects
+- **opengameart-rpg-sound-pack** — artisticdude · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/rpg-sound-pack
+- **opengameart-sfx-the-ultimate-2017-16-bit-mini-pack** — phoenix1291 · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/sfx-the-ultimate-2017-16-bit-mini-pack
+- **opengameart-sfx-the-ultimate-2017-8-bit-mini-pack** — phoenix1291 · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/sfx-the-ultimate-2017-8-bit-mini-pack
+- **opengameart-sound-effects-mini-pack15** — phoenix1291 · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/sound-effects-mini-pack15
+- **opengameart-sound-effects-pack-2** — phoenix1291 · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/sound-effects-pack-2
+- **opengameart-space-ship-shield-sounds** — bart · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/space-ship-shield-sounds
+- **opengameart-superpowers-assets-sound-effects** — medicinestorm · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/superpowers-assets-sound-effects
+- **opengameart-swamp-environment-audio** — lokif · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/swamp-environment-audio
+- **opengameart-swish-bamboo-stick-weapon-swhoshes** — qubodup · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/swish-bamboo-stick-weapon-swhoshes
+- **opengameart-swishes-sound-pack** — artisticdude · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/swishes-sound-pack
+- **opengameart-voiceover-pack-fighter-40-taunts** — kenney · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/voiceover-pack-fighter-40-taunts
+- **opengameart-wood-and-metal-sound-effects-volume-2** — ogrebane · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/wood-and-metal-sound-effects-volume-2
+- **opengameart-zombies-sound-pack** — artisticdude · opengameart.org · CC0 1.0 (public domain) — https://opengameart.org/content/zombies-sound-pack
+- **ui-clicks** — AtomCut
