@@ -11,7 +11,10 @@ import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
+import net.minecraft.client.Minecraft;
+
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
@@ -67,8 +70,39 @@ public class KczClient implements ClientModInitializer {
 				tekerlekCarpani = 1f;
 			}
 			zoomda = simdi;
+			arkaPlanFps(mc);
 		});
+		// Oyun kapanırken FPS ayarını eski hâline getir (düşük değer kaydedilmesin)
+		ClientLifecycleEvents.CLIENT_STOPPING.register(mc -> fpsGeriAl(mc));
 		LOG.info("KÇZ Client hazır.");
+	}
+
+	/* ---------- KÇZ optimizasyonu: arka planda FPS düşürme ---------- */
+	private static final int ARKA_PLAN_FPS = 15;
+	private static Integer asilFps = null;
+
+	private static void arkaPlanFps(Minecraft mc) {
+		try {
+			boolean arkada = !mc.isWindowActive();
+			if (arkada && Ayar.get().arkaplanFps && asilFps == null) {
+				asilFps = mc.options.framerateLimit().get();
+				mc.options.framerateLimit().set(ARKA_PLAN_FPS);
+			} else if ((!arkada || !Ayar.get().arkaplanFps) && asilFps != null) {
+				fpsGeriAl(mc);
+			}
+		} catch (Throwable t) {
+			LOG.debug("Arka plan FPS: {}", t.toString());
+		}
+	}
+
+	private static void fpsGeriAl(Minecraft mc) {
+		if (asilFps != null) {
+			try {
+				mc.options.framerateLimit().set(asilFps);
+			} catch (Throwable ignored) {
+			}
+			asilFps = null;
+		}
 	}
 
 	public static boolean zoomdaMi() {

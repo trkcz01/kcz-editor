@@ -22,6 +22,8 @@ public class Ayar {
 	public boolean ping = true;
 	public boolean tuslar = false;
 	public String konum = "sol-ust";
+	// KÇZ optimizasyonu: pencere arkadayken FPS'i düşür
+	public boolean arkaplanFps = true;
 
 	// Eklentiler (launcher bir sonraki açılışta uygular)
 	public boolean optimizasyon = true;

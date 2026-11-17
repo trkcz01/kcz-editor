@@ -353,6 +353,30 @@ pub fn sil(tur: &str, mc: &str, yukleyici: &str, sunucu: Option<&str>, dosya: &s
     Ok(true)
 }
 
+/// Eklenti klasörü: listede olmayan modları (yan modlar hariç) ve istenmeyenleri (her durumda) siler
+pub fn istenmeyenleri_sil(klasor: &Path, izinli: &[&str], istenmeyen: &[&str]) {
+    let mut kayit = kayit_oku(klasor);
+    let silinecek: Vec<String> = kayit
+        .iter()
+        .filter(|(_, k)| {
+            let slug = metin(k, "slug");
+            let proje = metin(k, "proje");
+            let yan = k["yan"].as_bool().unwrap_or(false);
+            istenmeyen.contains(&slug.as_str()) || (!yan && !izinli.contains(&slug.as_str()) && !izinli.contains(&proje.as_str()))
+        })
+        .map(|(a, _)| a.clone())
+        .collect();
+    for a in &silinecek {
+        let _ = std::fs::remove_file(klasor.join(a));
+        let _ = std::fs::remove_file(klasor.join(format!("{a}.disabled")));
+        kayit.remove(a);
+    }
+    if !silinecek.is_empty() {
+        kayit_yaz(klasor, &kayit);
+        log(format!("Kaldırıldı: {}", silinecek.join(", ")));
+    }
+}
+
 /// Oyun açılmadan önce: oyunun mods klasörünü seçili profille aynı yap.
 /// `kullanici`: profilin kendi modları; `ek`: KÇZ Client, optimizasyon ve eklenti klasörleri (aynı mod iki kez konmaz).
 pub fn esitle(yukleyici: &str, mc: &str, sunucu: Option<&str>, kullanici: bool, ek: &[PathBuf]) -> usize {

@@ -54,6 +54,7 @@ pub struct Istemci {
     pub shader: bool,
     pub sesli_sohbet: bool,
     pub kayit: bool,
+    pub arkaplan_fps: bool,
 }
 
 impl Default for Istemci {
@@ -69,6 +70,7 @@ impl Default for Istemci {
             shader: false,
             sesli_sohbet: false,
             kayit: false,
+            arkaplan_fps: true,
         }
     }
 }

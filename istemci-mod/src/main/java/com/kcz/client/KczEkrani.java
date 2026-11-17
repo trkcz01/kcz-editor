@@ -80,7 +80,7 @@ public class KczEkrani extends Screen {
 
 		int pw = Math.min(440, this.width - 16);
 		int satirH = 20, araH = 3;
-		int ph = 34 + 14 + 6 * (satirH + araH) + 26;
+		int ph = 34 + 14 + 7 * (satirH + araH) + 26;
 		int px = (this.width - pw) / 2;
 		int py = Math.max(6, (this.height - ph) / 2);
 
@@ -117,8 +117,9 @@ public class KczEkrani extends Screen {
 		sy = anahtar(g, solX, sy, sw, satirH, "FPS göstergesi", () -> a.fps, () -> a.fps = !a.fps, mx, my, kart, kartUstu, vurgu, yazi, soluk) + araH;
 		sy = anahtar(g, solX, sy, sw, satirH, "Ping göstergesi", () -> a.ping, () -> a.ping = !a.ping, mx, my, kart, kartUstu, vurgu, yazi, soluk) + araH;
 		sy = anahtar(g, solX, sy, sw, satirH, "Tuş göstergesi", () -> a.tuslar, () -> a.tuslar = !a.tuslar, mx, my, kart, kartUstu, vurgu, yazi, soluk) + araH;
-		secim(g, solX, sy, sw, satirH, "Konum", () -> "sag-ust".equals(a.konum) ? "Sağ üst" : "Sol üst",
-				() -> a.konum = "sag-ust".equals(a.konum) ? "sol-ust" : "sag-ust", mx, my, kart, kartUstu, vurgu, yazi, soluk);
+		sy = secim(g, solX, sy, sw, satirH, "Konum", () -> "sag-ust".equals(a.konum) ? "Sağ üst" : "Sol üst",
+				() -> a.konum = "sag-ust".equals(a.konum) ? "sol-ust" : "sag-ust", mx, my, kart, kartUstu, vurgu, yazi, soluk) + araH;
+		anahtar(g, solX, sy, sw, satirH, "Arka planda FPS düşür", () -> a.arkaplanFps, () -> a.arkaplanFps = !a.arkaplanFps, mx, my, kart, kartUstu, vurgu, yazi, soluk);
 
 		// Sağ sütun: launcher bir sonraki açılışta uygular
 		int ry = y;

@@ -69,6 +69,7 @@ pub fn ayar_yaz(a: &Ayarlar) {
         ("shader", json!(i.shader)),
         ("sesliSohbet", json!(i.sesli_sohbet)),
         ("kayit", json!(i.kayit)),
+        ("arkaplanFps", json!(i.arkaplan_fps)),
         ("tema", json!({ "zemin": zemin, "zemin2": zemin2, "vurgu": a.vurgu })),
     ] {
         j[k] = v;
@@ -102,6 +103,7 @@ pub fn ayar_geri_oku() {
         "shader",
         "sesliSohbet",
         "kayit",
+        "arkaplanFps",
     ] {
         if let Some(v) = j.get(k) {
             if i.get(k) != Some(v) && (v.is_boolean() || v.is_number() || v.is_string()) {

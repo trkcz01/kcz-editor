@@ -731,7 +731,7 @@ async function haftayiCiz() {
 
 /* ---------- Öneri kartları (Modrinth) ---------- */
 const ONERILER = [
-  { tur: 'mod', etiket: 'MOD', proje: 'sodium', ad: 'Sodium', alt: 'FPS\'ini ciddi şekilde artırır', harf: 'S' },
+  { tur: 'mod', etiket: 'MOD', proje: 'jei', ad: 'JEI', alt: 'Tüm tarifleri oyunun içinde gör', harf: 'J' },
   { tur: 'mod', etiket: 'MOD', proje: 'iris', ad: 'Iris', alt: 'Shader\'ları açmak için gerekli', harf: 'I' },
   { tur: 'shader', etiket: 'SHADER', proje: 'complementary-reimagined', ad: 'Complementary', alt: 'Gerçekçi ışık, su ve gölgeler', harf: 'C' },
   { tur: 'mod', etiket: 'MOD', proje: 'modmenu', ad: 'Mod Menu', alt: 'Mod ayarlarını oyunun içinden aç', harf: 'M' }

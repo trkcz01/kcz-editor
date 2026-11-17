@@ -1,4 +1,4 @@
-// Performans: sistemi tarama, hazır ayarlar (options.txt), Hafif mod (performans modları),
+// Performans: sistemi tarama, hazır ayarlar (options.txt), KÇZ Optimizasyon (görünmez performans modları),
 // ekran kartı tercihi, güç planı, Java bellek ayarları ve oyun önceliği.
 use crate::ortak::*;
 use crate::{ayarlar, modlar};
@@ -372,40 +372,39 @@ const PERFORMANS_ANAHTARI: &str = "kcz-performans";
 
 /// Her satır bir grup: ilk kurulabilen kullanılır (aynı işi yapan modlar birlikte kurulmasın)
 fn mod_gruplari(yukleyici: &str) -> Vec<Vec<&'static str>> {
+    // Sodium/Embeddium bilerek yok: görüntü motorunu değiştirmeyen, görünmez optimizasyonlar.
+    // Arka planda FPS düşürme KÇZ Client'ın kendi özelliği (Dynamic FPS yerine).
     match yukleyici {
         "fabric" | "quilt" => vec![
-            vec!["sodium"],
             vec!["lithium"],
             vec!["ferrite-core"],
             vec!["entityculling"],
             vec!["moreculling"],
             vec!["immediatelyfast"],
             vec!["modernfix"],
-            vec!["dynamic-fps"],
         ],
         "forge" => vec![
-            vec!["embeddium"],
             vec!["canary"],
             vec!["ferrite-core"],
             vec!["entityculling"],
             vec!["moreculling"],
             vec!["immediatelyfast"],
             vec!["modernfix"],
-            vec!["dynamic-fps"],
         ],
         "neoforge" => vec![
-            vec!["sodium", "embeddium"],
             vec!["lithium", "canary"],
             vec!["ferrite-core"],
             vec!["entityculling"],
             vec!["moreculling"],
             vec!["immediatelyfast"],
             vec!["modernfix"],
-            vec!["dynamic-fps"],
         ],
         _ => vec![],
     }
 }
+
+/// Bu klasörlere asla konmayacak modlar (eskiden kurulduysa da silinir)
+const ISTENMEYEN: [&str; 4] = ["sodium", "embeddium", "rubidium", "dynamic-fps"];
 
 fn simdi() -> u64 {
     std::time::SystemTime::now()
@@ -419,6 +418,11 @@ fn simdi() -> u64 {
 pub async fn klasor_hazirla(anahtar: &str, gruplar: Vec<Vec<&str>>, mc: &str, yukleyici: &str, mesaj: Option<&str>) -> PathBuf {
     let k = modlar::profil_klasoru(yukleyici, mc, Some(anahtar));
     let isaret = k.join(".kcz-hazir.json");
+    let liste: Vec<&str> = gruplar.iter().flatten().copied().collect();
+    let liste_metni = liste.join(",");
+    // Sodium yasağı sadece optimizasyon klasöründe: shader (Iris) Sodium'a muhtaç
+    let istenmeyen: &[&str] = if anahtar == PERFORMANS_ANAHTARI { &ISTENMEYEN } else { &[] };
+    modlar::istenmeyenleri_sil(&k, &liste, istenmeyen);
     let onceki: Value = std::fs::read_to_string(&isaret)
         .ok()
         .and_then(|m| serde_json::from_str(&m).ok())
@@ -429,10 +433,11 @@ pub async fn klasor_hazirla(anahtar: &str, gruplar: Vec<Vec<&str>>, mc: &str, yu
                 .any(|e| e.file_name().to_string_lossy().to_lowercase().ends_with(".jar"))
         })
         .unwrap_or(false);
-    let taze = onceki["zaman"]
-        .as_u64()
-        .map(|z| simdi().saturating_sub(z) < 3 * 24 * 3600)
-        .unwrap_or(false);
+    let taze = onceki["liste"].as_str() == Some(liste_metni.as_str())
+        && onceki["zaman"]
+            .as_u64()
+            .map(|z| simdi().saturating_sub(z) < 3 * 24 * 3600)
+            .unwrap_or(false);
     if taze && (jar_var || onceki["kurulan"].as_array().map(|a| a.is_empty()).unwrap_or(false)) {
         return k;
     }
@@ -459,7 +464,10 @@ pub async fn klasor_hazirla(anahtar: &str, gruplar: Vec<Vec<&str>>, mc: &str, yu
         }
     }
     if !hatali {
-        let _ = std::fs::write(&isaret, json!({ "zaman": simdi(), "kurulan": kurulan }).to_string());
+        let _ = std::fs::write(
+            &isaret,
+            json!({ "zaman": simdi(), "kurulan": kurulan, "liste": liste_metni }).to_string(),
+        );
     }
     if !kurulan.is_empty() {
         log(format!("{anahtar}: {}", kurulan.join(", ")));
