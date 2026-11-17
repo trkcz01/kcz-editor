@@ -9,7 +9,7 @@ on:
 jobs:
   derle:
     name: iPhone için derle
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 120
     steps:
       - name: Kodu al
@@ -22,6 +22,13 @@ jobs:
         with:
           distribution: zulu
           java-version: '8'
+
+      - name: En yeni Xcode'u seç (iOS 26 SDK gerekli)
+        run: |
+          ls -d /Applications/Xcode*.app
+          X=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          if [ -n "$X" ]; then sudo xcode-select -s "$X"; fi
+          xcodebuild -version
 
       - name: Gerekli araçlar
         run: |
