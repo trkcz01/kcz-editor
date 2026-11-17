@@ -1,0 +1,10 @@
+node_modules/
+src-tauri/target/
+imza/
+gh-token.txt
+latest.json
+*kaydi.txt
+istemci-mod/cikti/
+istemci-mod/build/
+istemci-mod/.gradle/
+yayin/

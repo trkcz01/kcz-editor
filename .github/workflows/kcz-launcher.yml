@@ -1,0 +1,124 @@
+# KÇZ Launcher - GitHub'ın Windows sunucusunda derler, imzalar ve yayınlar.
+# Kurulu launcher'lar açılışta bunu görüp sol üstte "Güncelle" gösterir.
+name: KÇZ Launcher derleme
+
+on:
+  push:
+    branches: [kcz-launcher]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  derle:
+    name: Windows için derle ve yayınla
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - name: İmza anahtarı var mı?
+        shell: pwsh
+        env:
+          ANAHTAR: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+        run: |
+          if (-not $env:ANAHTAR) {
+            Write-Host "::error::Depo ayarlarında TAURI_SIGNING_PRIVATE_KEY gizli değeri yok (Settings > Secrets and variables > Actions)."
+            exit 1
+          }
+
+      - name: Kodu al
+        uses: actions/checkout@v5
+
+      - name: Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Java 25 (KÇZ Client için)
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Rust önbelleği
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Gradle önbelleği
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ hashFiles('istemci-mod/build.gradle', 'istemci-mod/gradle.properties', 'istemci-mod/DERLE.ps1') }}
+
+      - name: Sürüm numarası
+        shell: pwsh
+        run: |
+          $v = "0.0.$(${{ github.run_number }} + 1)"
+          $utf8 = New-Object Text.UTF8Encoding $false
+          $f = 'src-tauri/tauri.conf.json'
+          $t = [IO.File]::ReadAllText((Resolve-Path $f))
+          $t = [regex]::Replace($t, '"version"\s*:\s*"[^"]*"', ('"version": "' + $v + '"'), 1)
+          [IO.File]::WriteAllText((Resolve-Path $f), $t, $utf8)
+          $c = 'src-tauri/Cargo.toml'
+          $t = [IO.File]::ReadAllText((Resolve-Path $c))
+          $t = [regex]::Replace($t, '(?m)^version = "[^"]*"', ('version = "' + $v + '"'), 1)
+          [IO.File]::WriteAllText((Resolve-Path $c), $t, $utf8)
+          "SURUM=$v" >> $env:GITHUB_ENV
+          Write-Host "Sürüm: $v"
+
+      - name: KÇZ Client (oyun içi menü)
+        shell: pwsh
+        run: |
+          & ./istemci-mod/DERLE.ps1
+          Get-Content mod-derleme-kaydi.txt -ErrorAction SilentlyContinue | Select-String -Pattern 'BUILD|error|=====' | ForEach-Object { $_.Line }
+          Get-ChildItem istemci-mod/cikti
+
+      - name: Tauri aracı
+        run: npm install
+
+      - name: Launcher'ı derle (imzalı)
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: kcz-launcher-imza
+        run: npx tauri build
+
+      - name: Güncelleme dosyalarını hazırla
+        shell: pwsh
+        run: |
+          $nsis = 'src-tauri/target/release/bundle/nsis'
+          $exe = Get-ChildItem $nsis -Filter '*-setup.exe' | Select-Object -First 1
+          $sig = Get-ChildItem $nsis -Filter '*-setup.exe.sig' | Select-Object -First 1
+          if (-not $exe -or -not $sig) { throw 'Kurulum dosyası ya da imzası yok.' }
+          New-Item -ItemType Directory -Force yayin | Out-Null
+          Copy-Item $exe.FullName yayin/KCZ-Launcher-setup.exe
+          $latest = [ordered]@{
+            version   = $env:SURUM
+            notes     = "KÇZ Launcher $env:SURUM"
+            pub_date  = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
+            platforms = @{
+              'windows-x86_64' = @{
+                signature = (Get-Content $sig.FullName -Raw).Trim()
+                url       = 'https://github.com/${{ github.repository }}/releases/download/kcz-launcher-son/KCZ-Launcher-setup.exe'
+              }
+            }
+          }
+          [IO.File]::WriteAllText((Join-Path (Get-Location) 'yayin/latest.json'), ($latest | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding $false))
+          Get-Content yayin/latest.json
+
+      - name: Yayınla
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: kcz-launcher-son
+          name: KÇZ Launcher (son sürüm)
+          prerelease: true
+          make_latest: false
+          body: |
+            KÇZ Launcher ${{ env.SURUM }}
+            Kurulu launcher'lar bunu kendiliğinden bulur (sol üstte "Güncelle").
+            İlk kurulum için: KCZ-Launcher-setup.exe
+          files: |
+            yayin/KCZ-Launcher-setup.exe
+            yayin/latest.json
