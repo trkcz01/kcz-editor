@@ -6,6 +6,9 @@ on:
     branches: [main, kcz-ios]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   derle:
     name: iPhone için derle
@@ -41,10 +44,31 @@ jobs:
           export PATH="$(brew --prefix make)/libexec/gnubin:$PATH"
           export SLIMMED=1
           gmake -j$(sysctl -n hw.ncpu) dsym package PLATFORM=2 BOOTJDK="$JAVA_HOME/bin"
+          # TrollStore sürümü (.tipa): bilgisayarsız kurulum, uygun iOS sürümlerinde
+          gmake -j$(sysctl -n hw.ncpu) package PLATFORM=2 BOOTJDK="$JAVA_HOME/bin" TROLLSTORE_JIT_ENT=1
+          ls -la artifacts
+          # Telefondan kolay indirilsin diye sabit adlar
+          mkdir -p indir
+          cp "$(ls artifacts/*.ipa | grep -v slimmed | grep -v trollstore | head -1)" indir/KCZ.ipa
+          cp "$(ls artifacts/*trollstore.tipa | grep -v slimmed | head -1)" indir/KCZ-TrollStore.tipa || true
 
       - name: iPhone dosyasını yükle (.ipa)
         uses: actions/upload-artifact@v5
         with:
           name: KCZ-iOS
-          path: artifacts/*.ipa
+          path: indir/*
           if-no-files-found: error
+
+      - name: Telefondan indirme bağlantısını güncelle
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: kcz-ios-son
+          name: KÇZ iPhone (son derleme)
+          prerelease: true
+          make_latest: false
+          body: |
+            Telefondan indir:
+            - **KCZ.ipa** → AltStore / SideStore ile kur
+            - **KCZ-TrollStore.tipa** → TrollStore ile kur (bilgisayarsız, uygun iOS sürümlerinde)
+            Derleme: ${{ github.sha }}
+          files: indir/*
