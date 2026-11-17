@@ -3,7 +3,7 @@ name: KÇZ iOS derleme
 
 on:
   push:
-    branches: [main]
+    branches: [main, kcz-ios]
   workflow_dispatch:
 
 jobs:
