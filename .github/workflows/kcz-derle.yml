@@ -1,0 +1,43 @@
+# KÇZ (iPhone) - GitHub'ın Mac sunucusunda derler ve .ipa dosyasını "Artifacts" olarak verir.
+name: KÇZ iOS derleme
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  derle:
+    name: iPhone için derle
+    runs-on: macos-15
+    timeout-minutes: 120
+    steps:
+      - name: Kodu al
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Java 8 (derleme aracı)
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: '8'
+
+      - name: Gerekli araçlar
+        run: |
+          brew install make ldid
+          cmake --version
+          xcrun --sdk iphoneos --show-sdk-path
+
+      - name: Derle
+        run: |
+          export PATH="$(brew --prefix make)/libexec/gnubin:$PATH"
+          export SLIMMED=1
+          gmake -j$(sysctl -n hw.ncpu) dsym package PLATFORM=2 BOOTJDK="$JAVA_HOME/bin"
+
+      - name: iPhone dosyasını yükle (.ipa)
+        uses: actions/upload-artifact@v4
+        with:
+          name: KCZ-iOS
+          path: artifacts/*.ipa
+          if-no-files-found: error
